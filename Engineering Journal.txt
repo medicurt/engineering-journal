@@ -1,0 +1,56 @@
+Embedded Systems
+	#Terminology
+		-Sensors are devices that turn input into a digital signal
+		-Actuators are devices that turn digital signal into output
+		-A change in signla is called an event; 0 to 1 is rising, 1 to 0 is falling. A pulse is a 0-1-0 cycle.
+		-1-bit datum is represented by unsigned char type, which, for the purposes of c, is actually treated as numerical
+		-RIMS has two implicit variables (both unsigned chars): A representing 8 bits of input, B representing 8 bits of output. 
+		-Four bits is called a nibble
+		-Hex is used to do binary stuff, a hex constant is headed by the characters '0x' followed by the hex.
+			Thus 0xFF sets all eight bits to '1'. 
+		-Setting one output pin is possible by directly assigning a 1 or 0, but setting multiple is accomplished via hex. 
+		-C bitwise operators (only one symbol, not two): & is And |; is Or; ^ is exclusive or (only true if exactly one option is true); ~ is NOT.
+			Using ! on bitwise operations will result in either F (if value is 0) or 0 (if value is !0), ~ yields bitwise opposites.
+		-Remember the distinction between bitwise and logical operands. Logical AND (&&) will return 1 for 0xF0 && 0x0F whereas bitwise will not.
+		-Good practice is to use logical operands when only dealing with single bits.
+	#Experience notes:
+		- The ordering of bits is read from left to right descending order, with the highest bit to the left and lowest bit to the right. Thus,
+		0xF0 with set B7-4 to 1 but not B3-0. The 0th bit at the right end is considered the lowest bit. 
+	#Code Snippets
+		-unsigned char GetBit(unsigned char x, unsigned char k) {
+			return ((x & (0x01 << k)) != 0);
+		}
+		-unsigned char SetBit(unsigned char x, unsigned char k, unsigned char b) {
+			return (b ?  (x | (0x01 << k))  :  (x & ~(0x01 << k)) );
+						//   Set bit to 1           Set bit to 0
+			}
+		
+FastAPI
+	#Authentication Errors:
+		#When writing authentication tokens, name them using underscores, not spaces
+	#Encryption Errors:
+		-"passlib hash could not be identified" usually because of a hardcoded password not being hashed, program will not
+		fail due to password failure, but will return an internal error and mention passlib. Try putting in a hashed pass instead.
+	#Post errors:
+		-"___ is not an attribute of schemas" Check to make sure that the right schema is being passed on the front end.
+		-"___ is not an attribute of models" make sure that all the spellings line up between the models and schemas,
+		or else it won't work
+		-"___ is not a valid dict" ORM is not turned on on that schema, check that first. 
+HTML
+	#CRUD for HTML ops is Post, Get, Put, and Delete, respectively.
+Python
+	#Import errors:
+		#"Submodule not found" usually trying to import a library that is not installed, being too specific with import extensions,
+		try changing the import statements and ensuring that all libraries are installed.
+		
+		-Black to reformat code
+	#Uvicorn
+		-ASGI error? try 'uvicorn main:app'.
+		-Acoid using 'reload' to avoid infinite loop errors. 
+
+Visual Studio
+	-CTRL+K+C to comment blocks of highlighted code
+	-CTRL+K+U to uncomment
+	
+Troubleshooting:
+	#Tracing is where a program is drawn out on paper and mentally executed step by step
