@@ -1,3 +1,5 @@
+127.0.0.1
+
 Embedded Systems
 	#Terminology
 		-Sensors are devices that turn input into a digital signal
